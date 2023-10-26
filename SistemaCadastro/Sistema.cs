@@ -55,10 +55,15 @@ namespace SistemaCadastro
         private void BtnConfirmaCadastro_Click_1(object sender, EventArgs e)
         {
             Banda novaBanda = new Banda();
+            novaBanda.Nome = txtnome.Text;
+            novaBanda.Integrantes = Convert.ToInt32(txtintegrantes.Text);
+            novaBanda.Ranking = Convert.ToInt32(txtranking.Text);
+            novaBanda.Genero = 1;
+
             ConectaBanco conexao = new ConectaBanco();
             bool retorno = conexao.insereBanda(novaBanda);
             if (retorno == true)
-                MessageBox.Show("Conexao efetuada");
+                MessageBox.Show("Inserção efetuada");
             else
                 MessageBox.Show("Erro:" + conexao.mensagem);
         }

@@ -11,13 +11,20 @@ namespace SistemaCadastro
 {
     class ConectaBanco
     {
-        MySqlConnection conexao = new MySqlConnection("server=localhost;user id=root;password=compServer;database=banco_siscadastro");
+        MySqlConnection conexao = new MySqlConnection("server=localhost;user id=root;password=;database=banco_bandas");
         public string mensagem;
         
         public bool insereBanda(Banda novaBanda)
         {
             try { 
              conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("sp_insert", conexao);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("nome", novaBanda.Nome);
+                cmd.Parameters.AddWithValue("ranking", novaBanda.Ranking);
+                cmd.Parameters.AddWithValue("integrantes", novaBanda.Integrantes);
+                cmd.Parameters.AddWithValue("genero", novaBanda.Genero);
+                cmd.ExecuteNonQuery(); //executar no banco
              return true;
             }catch(MySqlException erro)
             {
